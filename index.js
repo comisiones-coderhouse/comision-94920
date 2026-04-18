@@ -1,21 +1,38 @@
-//1) importar la libreria express
-//const express = require("express")
 import express from "express"
 import cookieParser from "cookie-parser"
+import mongoose from "mongoose"
 
-//crear una instancia de express
-//const express = express
 const app = express()
-//app.use([path string ,] middleware fn)
-//app.METHOD(path string, callback fn)
 
 app.use(express.json())
 app.use(cookieParser())
 
 
+const userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        validate: {
+            validator: (elDato) => {
+
+                console.log("🚀 ~ index.js:19 ~ elDato:", elDato)
+
+                return elDato.includes("@")
+            },
+            message: "El email no es válido"
+        }
+    },
+    password: {
+        type: String,
+        required: true
+    }
+}, { timestamps: true })
+
+const UserModel = mongoose.model("User", userSchema)
+
+
 app.get("/", (req, res) => {
-    //console.log(req.query)
-    console.log(req.cookies)
     if (req.cookies.nombre) {
         res.send("Hola " + req.cookies.nombre)
     } else {
@@ -24,39 +41,68 @@ app.get("/", (req, res) => {
 })
 
 app.post("/login", (req, res) => {
-    //console.log(req.body) //{}
-    //req.body.nombre
-    res.cookie("nombre", req.body.nombre)
-    res.send("Hola Mundo")
+
+    /* let nombre = "Horacio";
+
+    if (req.body && req.body.nombre) {
+        nombre = req.body.nombre
+    }
+
+     */
+    if (!req.body) {
+        return res.status(400).send("Faltan datos en el body")
+    }
+
+    const { email, password } = req.body
+
+    UserModel.find({ email: email })
+        .then((laRespuesta) => {
+
+            console.log("🚀 ~ index.js:61 ~ laRespuesta:", laRespuesta)
+            console.log("🚀 ~ index.js:58 ~ password:", password)
+
+
+            if (laRespuesta[0].password !== password) {
+                return res.status(401).send("Contraseña incorrecta")
+            }
+
+            res.cookie("nombre", laRespuesta[0])
+            return res.send(laRespuesta)
+        })
+        .catch((err) => {
+            console.error("Error finding user:", err)
+            return res.status(500).send("Error al buscar usuario")
+        })
 })
 
 app.post("/signup", (req, res) => {
-    console.log(req.body) //{}
-    res.send("Hola Mundo")
+
+    const { email, password } = req.body
+
+    /* 
+    const inst = new UserModel()
+    inst.save()
+    */
+
+    UserModel.create({ email, password })
+        .then(() => {
+            res.send("Usuario creado con exito!")
+        })
+        .catch((err) => {
+            console.error("Error creating user:", err)
+            return res.status(500).send("Error al crear usuario")
+        })
+
+
 })
 
-//prender el puerto
-app.listen(3000, () => {
-    console.log("Servidor prendido!")
-})
-
-
-/* 
-HTTP 
-
-Cliente - Servidor
-Request - Response
-
-
-METODO URL VERSION
-Headers
-Body
-
-GET / http/1.1
-Accept : text/html
-Body : 
-
-Metodos/Verbos : GET - POST - PUT - PATCH - DELETE - ...
-URL / IP : "/" - "https://google.com" - "https://google.com/search?q=cortauñas"
-
-*/
+mongoose.connect("mongodb://127.0.0.1:27017/miapp")
+    .then(() => {
+        console.log("Conectado a MongoDB")
+        app.listen(3000, () => {
+            console.log("Servidor prendido!")
+        })
+    })
+    .catch((err) => {
+        console.log(err)
+    })
