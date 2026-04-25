@@ -17,6 +17,7 @@ mongodb - cassandra - firebase
 
 Proximo : 
 - cambiar a store de DB
+- JWT
 - encrtiptar/hashear las contraseñas
 
 
