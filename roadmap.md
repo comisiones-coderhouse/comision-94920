@@ -11,6 +11,29 @@ mongodb - cassandra - firebase
 - levantar una db
 - intro a cookies
 - intro a sesiones
+- ya tenemos cookies
+- ya tenemos sesiones 
+- ya tenemos store
 
 Proximo : 
+- cambiar a store de DB
 - encrtiptar/hashear las contraseñas
+
+
+
+Solo cookies :
+
+cliente (email,pass)      ------------------->  servidor 
+cliente                   <-------------------  servidor(cookie)
+cliente (guardo cookie)
+cliente (cookie)          ------------------->  servidor : verifica autenticidad de cookie y nos deja pasar
+
+
+
+Cookies con Session : 
+
+cliente (email,pass)      ------------------->  servidor 
+                                                servidor (crea sesion)
+cliente                   <-------------------  servidor(cookie)
+cliente (guardo cookie)
+cliente (cookie)          ------------------->  servidor : verifica autenticidad de cookie y busca la sesion
