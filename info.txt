@@ -1,0 +1,31 @@
+https://opencode.ai/
+
+https://replit.com/
+https://v0.app/
+
+OOP
+
+config : Configuraciones a nivel general del proyecto, como la conexión a la base de datos, claves de API, puerto,  etc.
+
+models : Definición de los modelos de datos, como usuarios, productos, etc. Aquí se definen las estructuras de datos y las relaciones entre ellas.
+
+routes : Endpoints de acceso a la aplicacion. Estan unidos a controladores.
+
+controllers : Lógica de negocio para manejar las solicitudes y respuestas.
+
+middlewares : Funciones que se ejecutan antes o después de los controladores, como autenticación, manejo de errores, validaciones varias, etc.
+
+strategies : Son las funciones que le enchufamos a express-session 
+
+
+
+Endpoint: POST /api/v1/auth/register
+
+Endpoint: POST /api/v1/auth/login
+
+GET /api/v1/profile protegida por JWT
+
+GET /api/v1/admin protegida por rol
+
+/logout
+
