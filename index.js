@@ -1,14 +1,7 @@
 import mongoose from "mongoose";
 import session from "express-session";
 import app from "./app.js";
-
-function checkLoggedIn(req, res, next) {
-  if (req.signedCookies.email) {
-    res.redirect("/dashboard");
-  } else {
-    next();
-  }
-}
+import { SECRET_KEY } from "./config/secret-key.config.js";
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/miapp")

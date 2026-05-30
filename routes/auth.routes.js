@@ -1,9 +1,12 @@
+import passport from "passport"
 import express from "express"
-import { loginController } from "../controllers/auth.controllers.js"
+
+import { loginController, loginViewController } from "../controllers/auth.controllers.js"
 
 const router = express.Router()
 
-router.post("/login", loginController)
+router.get("/login", loginViewController)
+router.post("/login", passport.authenticate("local") /* loginController */)
 
 /* 
 router.get("/login", 

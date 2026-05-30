@@ -29,3 +29,31 @@ GET /api/v1/admin protegida por rol
 
 /logout
 
+
+
+
+Cosas faltantes : 
+
+- ruta de signup en back
+- bcrypt para password hashing
+- ruta de signup y login de front
+- enviar el token al cliente
+- passportjs
+- proteger rutas con JWT    
+- ruta exclusiva para admin
+- manejo de errores
+- ruta de current
+
+
+
+https://www.npmjs.com/package/dotenv
+https://nodejs.org/learn/command-line/how-to-read-environment-variables-from-nodejs
+
+https://firebase.google.com/
+
+https://supabase.com/
+https://supabase.com/ui/docs/nextjs/password-based-auth
+
+https://clerk.com/
+
+https://www.passportjs.org/tutorials/password/session/
