@@ -34,17 +34,15 @@ GET /api/v1/admin protegida por rol
 
 Cosas faltantes : 
 
-- ruta de signup en back
-- bcrypt para password hashing
-- ruta de signup y login de front
-- enviar el token al cliente
-- passportjs
-- proteger rutas con JWT    
+- arreglar la comparacion de contraseñas en el login
 - ruta exclusiva para admin
 - manejo de errores
 - ruta de current
 
-
+- proteger rutas con JWT    
+- proteger la ruta del dashboard
+- hacer redirecciones de rutas publicas si ya estoy logueado
+- hacer login social (github, google)
 
 https://www.npmjs.com/package/dotenv
 https://nodejs.org/learn/command-line/how-to-read-environment-variables-from-nodejs
